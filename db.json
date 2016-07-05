@@ -7,8 +7,8 @@
     },
     {
       "id": "75678a86-12f6-4ac9-9eaa-079d2124fb0f",
-      "description": "Pick up beer",
-      "isComplete": false
+      "description": "Cut the weeds",
+      "isComplete": "false"
     },
     {
       "id": "053a3ca6-18e1-45df-afbc-0ddcf1e2cde4",

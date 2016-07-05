@@ -29,22 +29,14 @@ server.get('/todos/:id', function(request, response){
   response.send(todo);
 });
 
-server.delete('/todos/:id', function(request, response){
-  //response.send('GET todos :id');
-  //console.log(request.params);
-  var todo = db.get('todos')
-                 .remove({id: request.params.id})
-                 .value();
-  response.send(todo);
-});
+
 
 server.post('/todos', function(request, response){
   var todo = {
-    id: uuid.v4(),
-    description: request.body.description,
-    isComplete: false
-  };
-
+                id: uuid.v4(),
+                description: request.body.description,
+                isComplete: false
+              };
   var result = db.get('todos')
                  .push(todo)
                  .last()
@@ -53,11 +45,25 @@ server.post('/todos', function(request, response){
 });
 
 server.put('/todos/:id', function(request, response){
-  response.send('PUT todos :id');
+  //response.send('PUT todos :id');
+  var updatedTodoInfo = {
+                          description: request.body.description,
+                          isComplete: request.body.isComplete
+                       };
+  var updatedTodo = db.get('todos')
+                      .find({id: request.params.id})
+                      .assign(updatedTodoInfo)
+                      .value();
+  response.send(updatedTodo);
 });
 
 server.delete('/todos/:id', function(request, response){
-  response.send('DELETE todos :id');
+  //response.send('GET todos :id');
+  //console.log(request.params);
+  var todo = db.get('todos')
+                 .remove({id: request.params.id})
+                 .value();
+  response.send(todo);
 });
 
 server.listen(port, function(){
