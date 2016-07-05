@@ -15,13 +15,18 @@ server.use(bodyParser.urlencoded({extended: true}));
 
 server.get('/todos', function(request, response){
   // response.send('GET todos');
-  var result = db.get('todos')
+  var todos = db.get('todos')
                 .value();
-  response.send(result);
+  response.send(todos);
 });
 
 server.get('/todos/:id', function(request, response){
-  response.send('GET todos :id');
+  //response.send('GET todos :id');
+  //console.log(request.params);
+  var todo = db.get('todos')
+                 .find({id: request.params.id})
+                 .value();
+  response.send(todo);
 });
 
 server.post('/todos', function(request, response){
