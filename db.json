@@ -1,11 +1,6 @@
 {
   "todos": [
     {
-      "id": "d5b844a1-8487-4ab9-8842-8d8239892f90",
-      "description": "do legos hurt when you step on them",
-      "isComplete": false
-    },
-    {
       "id": "69e1d662-8894-43ad-982e-b529a886ba9b",
       "description": "do legos hurt when you step on them",
       "isComplete": false

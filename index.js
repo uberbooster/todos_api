@@ -29,6 +29,15 @@ server.get('/todos/:id', function(request, response){
   response.send(todo);
 });
 
+server.delete('/todos/:id', function(request, response){
+  //response.send('GET todos :id');
+  //console.log(request.params);
+  var todo = db.get('todos')
+                 .remove({id: request.params.id})
+                 .value();
+  response.send(todo);
+});
+
 server.post('/todos', function(request, response){
   var todo = {
     id: uuid.v4(),
