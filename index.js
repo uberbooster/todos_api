@@ -3,7 +3,9 @@ var bodyParser = require('body-parser');
 var lowdb = require('lowdb');
 var uuid = require('uuid');
 var server = express();
-
+console.log('var server = express();');
+var Todo = require('./models/todo.js');
+console.log("var Todo = require('./models/todo.js');");
 var port = process.env.PORT || 8080;
 var db = lowdb('db.json');
 
@@ -32,11 +34,12 @@ server.get('/todos/:id', function(request, response){
 
 
 server.post('/todos', function(request, response){
-  var todo = {
-                id: uuid.v4(),
-                description: request.body.description,
-                isComplete: false
-              };
+  // var todo = {
+  //               id: uuid.v4(),
+  //               description: request.body.description,
+  //               isComplete: false
+  //             };
+  var todo = new Todo(request.body.description);
   var result = db.get('todos')
                  .push(todo)
                  .last()
@@ -46,13 +49,15 @@ server.post('/todos', function(request, response){
 
 server.put('/todos/:id', function(request, response){
   //response.send('PUT todos :id');
-  var updatedTodoInfo = {
-                          description: request.body.description,
-                          isComplete: request.body.isComplete
-                       };
+  // var updatedTodoInfo = {
+  //                         description: request.body.description,
+  //                         isComplete: request.body.isComplete
+  //                      };
+  var todo = new Todo(request.body.description, request.params.id);
+  todo.updateComplete(request.body.isComplete);
   var updatedTodo = db.get('todos')
                       .find({id: request.params.id})
-                      .assign(updatedTodoInfo)
+                      .assign(todo)
                       .value();
   response.send(updatedTodo);
 });
